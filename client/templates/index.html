@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Início - Gerador de Legendas{% endblock %}
+
+{% block content %}
+
+<p class="display-2 d-flex align-items-center justify-content-center mt-1 mb-5"><strong class="text-center">Gerador de Legendas</strong></p>
+
+		<form class="w-100 p-4 rounded shadow-lg border border-dark" action="/generate" method="post" enctype="multipart/form-data">
+	
+			<input class="form-control form-control-small mt-2" type="file" name="video" id="video">
+	
+			<div class="form-group mt-2">
+				
+
+				<label for="idioma_original" class="form-label">Idioma Original</label>
+				<select name="original" class="form-select" id="idioma_original">
+					<option value="pt-br">Português</option>
+					<option value="en-us">Inglês</option>
+				</select>
+			
+			</div>
+			<div class="form-grup mt-2 mb-2">
+				<label for="checkbox" class="form-label">Idiomas Finais</label>
+				<div id="checkbox" class="checkbox d-flex align-items-center">
+					<div class="form-check">
+						<label for="en" class="form-check-label">Inglês</label>
+						<input class="form-check-input" type="checkbox" name="en" id="en" checked>
+					</div>
+					<div class="mx-2 form-check">
+						<label for="pt" class="form-check-label">Português</label>
+						<input class="form-check-input" type="checkbox" name="pt" id="pt">
+					</div>
+				</div>
+
+			</div>
+			<input class="btn btn-success" type="submit" value="Enviar">
+		</form>
+
+	<small class="p-3 fixed-bottom w-auto">Um projeto de <a class="text-dark" target='_blank' href="https://github.com/araujorafael9201">Rafael Araújo</a></small>
+
+{% endblock %}

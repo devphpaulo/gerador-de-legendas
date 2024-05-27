@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% block title %}Processos - Gerador de Legendas{% endblock %}
+
+{% block content %}
+	
+<p class="display-2 d-flex align-items-center justify-content-center mt-1 mb-5"><strong class="text-center">Consultar Processos</strong></p>
+<div class="content w-100">
+
+
+
+	<form class="formulario w-100 p-4 rounded shadow-lg border border-dark">
+		<div class="mb-3">
+			<label class="form-label" for="token">Token</label>
+			<input class="form-control token" type="text" placeholder="Insira seu Token">
+		</div>
+		<button type="submit" class="btn btn-success">Consultar</button>
+	</form>
+
+
+</div>
+
+
+<small class="p-3 fixed-bottom w-auto">Um projeto de <a class="text-dark" target='_blank' href="https://github.com/araujorafael9201">Rafael Araújo</a></small>
+
+<script>
+	const form = document.querySelector('.formulario')
+	const tokenInput = document.querySelector('.token')
+	const contentDiv = document.querySelector('.content')
+	const downloadDiv = document.querySelector('.download')
+
+	form.addEventListener('submit', handleSubmit)
+
+
+	function handleSubmit(e) {
+		e.preventDefault() 
+
+		fetch('/info/' + tokenInput.value).then(res => {
+			res.json().then(res => {
+				const { andamento, data_inicio, filename, idiomas, token, original } = res
+				let andamentoString = ''
+				switch (andamento) {
+					case 0:
+						andamentoString = 'Não Iniciado'
+						break
+					case 1:
+						andamentoString = 'Iniciado'
+						break
+					case 2:
+						andamentoString = 'Finalizado'
+						break
+				}
+					
+				if (andamento == 2) {
+					contentDiv.innerHTML = `
+						<div class="w-100 p-4 rounded shadow-lg border border-dark">
+						<h3><strong>Nome do Arquivo:</strong> ${filename}</h3>
+						<h3><strong>Idioma Original:</strong> ${original}</h3>
+						<h3><strong>Idiomas das legendas:</strong> ${idiomas}</h3>
+						<h3><strong>Data do Envio:</strong> ${data_inicio}</h3>
+						<div class="d-flex">
+							
+
+						<h3><strong>Andamento:</strong> ${andamentoString}</h3>
+						<a class="btn btn-primary mx-2" href="/downloads/${token}">Download</a>
+						</div>
+						</div>
+
+						`
+				} else {
+					contentDiv.innerHTML = `
+						<div class="w-100 p-4 rounded shadow-lg border border-dark">
+						<h3><strong>Nome do Arquivo:</strong> ${filename}</h3>
+						<h3><strong>Idioma Original:</strong> ${original}</h3>
+						<h3><strong>Idiomas das legendas:</strong> ${idiomas}</h3>
+						<h3><strong>Data do Envio:</strong> ${data_inicio}</h3>
+						<div class="d-flex">
+							
+
+						<h3><strong>Andamento:</strong> ${andamentoString}</h3>
+						</div>
+						</div>
+
+						`
+
+				}
+
+
+
+			})
+
+
+		})
+	}
+</script>
+
+{% endblock %}
