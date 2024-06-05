@@ -22,7 +22,7 @@ docker-compose up
 - [Docker](https://www.docker.com/)
 - [Docker-Compose](https://docs.docker.com/compose/)
 
-### Passo-a-Passo: Geração de Lengendas
+### Passo-a-Passo: Geração de Legendas
 1. Extração do áudio
 2. Detecção de silêncios
 3. Fragmentação do áudio de acordo com os tempos das falas
